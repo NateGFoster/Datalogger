@@ -11,6 +11,7 @@ void setup() {
     } while (millis() - start < 3000  && !Serial); // so the teensy will wait 3 seconds and if it isn't connected to the serial then it will put out a false
     
     Serial.println("Logger booting");//if we get the all clear and it connects to the serial monitor then print this 
+    sizeof(Record); //this is just to make sure that the struct is the right size, it should be 28 bytes, if it isn't then something is wrong with the struct and we need to fix it
   }
 
 void loop() {
