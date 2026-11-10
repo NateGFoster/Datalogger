@@ -1,4 +1,5 @@
 #include <Arduino.h>
+#include "record.h" //I use "" because it's my file and not a library
 // Blink code to confirm teensy is working To be deleted 
 void setup() {
   pinMode(LED_BUILTIN, OUTPUT);   // pin 13, the orange LED
