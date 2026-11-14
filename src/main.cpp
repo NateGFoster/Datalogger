@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include "record.h" //I use "" because it's my file and not a library
+#include "sensors.h"
 // Blink code to confirm teensy is working To be deleted 
 void setup() {
   pinMode(LED_BUILTIN, OUTPUT);   // pin 13, the orange LED
@@ -22,9 +23,19 @@ void loop() {
 
   ledOn = !ledOn; // toggle the LED state
   digitalWrite(LED_BUILTIN, ledOn ? HIGH : LOW); // turn the LED on or off based on the ledOn variable
-  Serial.println(count);// print the count to the serial monitor
+  Record sensorData;
+  readSensors(&sensorData); // pass the address of sensorData to readSensors
+  sensorData.sample_number = count; // set by the caller, see notes.md
+  sensorData.time_ms = millis();
   count++;
-  
+
+  Serial.print("#");        Serial.print(sensorData.sample_number);
+  Serial.print("  t: ");    Serial.print(sensorData.time_ms);
+  Serial.print("  P: ");    Serial.print(sensorData.pressure_hPa);
+  Serial.print("  T: ");    Serial.print(sensorData.temperature_C);
+  Serial.print("  H: ");    Serial.print(sensorData.heading_degrees);
+  Serial.print("  Tilt: "); Serial.print(sensorData.tilt_degrees);
+  Serial.print("  S: ");    Serial.println(sensorData.speed_mps);   // println ends the line
   delay(1000); // wait 1 second
-}
+  }
 
